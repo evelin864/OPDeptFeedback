@@ -246,6 +246,17 @@
                         transition: transform 0.3s ease, color 0.3s ease;
                 }
 
+                @media (max-width: 480px) {
+                        #starRating .star {
+                                font-size: 1.9rem;
+                                /* smaller stars on mobile */
+                        }
+                        .page {
+                                padding: 10px;
+                        }
+                }
+
+
                 .star:hover {
                         transform: scale(1.3) rotate(-10deg);
                         color: gold;
@@ -353,9 +364,8 @@
                                                 data-i18n="qother">Other (specify)</span>
                                 </div>
                         </div>
-                        <div class="actions" id="other18" style="display:none;">
-                                <input id="other18Input" class="input" type="text"
-                                        placeholder="Type other and continue">
+                        <div class="actions" id="other3" style="display:none;">
+                                <input id="other3Input" class="input" type="text" placeholder="Type other and continue">
                                 <button class="btn btn-primary" onclick="submitOther(3,'Other')"><span
                                                 data-i18n="continue">Continue</span></button>
                         </div>
@@ -376,7 +386,8 @@
 
                 <!-- Q5 -->
                 <section class="page" id="q5">
-                        <h2>⭐ <span data-i18n="q5">How would you rate your experience with Consultation Department?</span></h2>
+                        <h2>⭐ <span data-i18n="q5">How would you rate your experience with Consultation
+                                        Department?</span></h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(5,1)">😡</span>
                                 <span id="e2" onclick="highlightEmoji(5,2)">😟</span>
@@ -525,6 +536,7 @@
                                 q3o1: "Farmer",
                                 q3o2: "Govt. Employee",
                                 q3o3: "Salaried Employee",
+                                qother: "Other (Specify)",
                                 q4: "How would you rate your experience with Records Department?",
                                 q5: "How would you rate your experience with Consultation Department?",
                                 q6: "How would you rate your experience with Lab Department?",
@@ -559,6 +571,7 @@
                                 q3o1: "କୃଷକ",
                                 q3o2: "ସରକାରୀ କର୍ମଚାରୀ",
                                 q3o3: "ବେତନଭୋଗୀ କର୍ମଚାରୀ",
+                                qother: "ଅନ୍ୟ (ଉଲ୍ଲେଖ କରନ୍ତୁ)",
                                 q4: "ଆପଣଙ୍କ ରେକର୍ଡ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
                                 q5: "ଆପଣଙ୍କ ଡାକ୍ତର ପରାମର୍ଶ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
                                 q6: "ଆପଣଙ୍କ ଲାବ୍ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
@@ -593,6 +606,7 @@
                                 q3o1: "किसान",
                                 q3o2: "सरकारी कर्मचारी",
                                 q3o3: "वेतनभोगी कर्मचारी",
+                                qother: "अन्य (बताइए)",
                                 q4: "आप रिकॉर्ड विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
                                 q5: "आप डॉक्टर परामर्श विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
                                 q6: "आप लैब विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
@@ -627,6 +641,7 @@
                                 q3o1: "రైతు ",
                                 q3o2: "ప్రభుత్వ ఉద్యోగి",
                                 q3o3: "వేతన ఉద్యోగి",
+                                qother: "ఇతర (వివరించండి)",
                                 q4: "మీరు రికార్డ్స్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
                                 q5: "మీరు డాక్టర్ కన్సల్టేషన్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
                                 q6: "మీరు ల్యాబ్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
@@ -731,10 +746,12 @@
                         chosen.classList.remove("active");
                         void chosen.offsetWidth; // trigger reflow
                         chosen.classList.add("active");
+                        wrap.style.pointerEvents = "none";
 
                         setTimeout(() => {
-                                answerAndNext(qNum, value)
-                        }, 1000);
+                                answerAndNext(qNum, value);
+                                wrap.style.pointerEvents = "auto";
+                        }, 500);
                 }
 
                 // Initialize first page
@@ -761,8 +778,6 @@
                         }
                 }
 
-
-                // build stars for Q13
                 buildStars(11);
 
                 function submitSurvey() {
