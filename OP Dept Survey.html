@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>AKH Outpatient Feedback</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+                :root {
+                        --bg1: #f0f9ff;
+                        --bg2: #e0f2fe;
+                        --card: #ffffff;
+                        --text: #0f172a;
+                        --muted: #64748b;
+                        --primary: #2563eb;
+                        --primary2: #7c3aed;
+                        --accent: #22c55e;
+                        --border: #e2e8f0;
+                }
+
+                * {
+                        box-sizing: border-box
+                }
+
+                body {
+                        margin: 0;
+                        font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+                        color: var(--text);
+                        background: linear-gradient(180deg, var(--bg1), var(--bg2));
+                }
+
+                .container {
+                        max-width: 700px;
+                        margin: 0 auto;
+                        padding: 20px;
+                }
+
+                .header {
+                        background: var(--card);
+                        border: 1px solid var(--border);
+                        border-radius: 16px;
+                        padding: 20px;
+                        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+                        margin-bottom: 16px;
+                        text-align: center;
+                        /* display: flex; */
+                }
+
+                .header h1 {
+                        margin: 0 0 6px;
+                        font-size: 24px
+                }
+
+                .header p {
+                        margin: 0;
+                        color: var(--muted)
+                }
+
+                .language {
+                        text-align: right;
+                        padding: 0 2vw 2vw 0;
+                        color: var(--primary2);
+                }
+
+                .lang {
+                        color: var(--primary2);
+                        border: 1px solid var(--primary);
+                        border-radius: 5%;
+                }
+
+                .progress {
+                        height: 10px;
+                        background: #e5e7eb;
+                        border-radius: 999px;
+                        overflow: hidden;
+                        margin: 16px 0 0
+                }
+
+                .progress-bar {
+                        height: 100%;
+                        width: 0%;
+                        background: linear-gradient(90deg, var(--primary), var(--primary2));
+                        transition: width .3s
+                }
+
+                .page {
+                        display: none;
+                        background: var(--card);
+                        border: 1px solid var(--border);
+                        border-radius: 16px;
+                        padding: 24px;
+                        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+                        animation: fade .35s ease;
+                }
+
+                .page.active {
+                        display: block
+                }
+
+                @keyframes fade {
+                        from {
+                                opacity: .0;
+                                transform: translateY(10px)
+                        }
+
+                        to {
+                                opacity: 1;
+                                transform: translateY(0)
+                        }
+                }
+
+                h2 {
+                        font-size: 22px;
+                        margin: 0 0 14px
+                }
+
+                .hint {
+                        color: var(--muted);
+                        font-size: 14px;
+                        margin-bottom: 10px
+                }
+
+                .options {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 10px
+                }
+
+                .option {
+                        padding: 14px;
+                        border-radius: 12px;
+                        border: 1px solid var(--border);
+                        background: #f8fafc;
+                        cursor: pointer;
+                        transition: transform .15s ease, background .15s ease, border-color .15s ease;
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                }
+
+                .option:hover {
+                        transform: translateY(-1px);
+                        background: #fff;
+                        border-color: #dbeafe
+                }
+
+                .emoji {
+                        font-size: 20px
+                }
+
+                .actions {
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        margin-top: 12px
+                }
+
+                .input {
+                        width: 100%;
+                        padding: 12px 14px;
+                        border: 1px solid var(--border);
+                        border-radius: 10px;
+                        background: #f8fafc;
+                        outline: none;
+                }
+
+                .input:focus {
+                        border-color: var(--primary);
+                        box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
+                        background: #fff
+                }
+
+                .btn {
+                        appearance: none;
+                        border: none;
+                        border-radius: 10px;
+                        padding: 12px 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                }
+
+                .btn-primary {
+                        background: var(--primary);
+                        color: #fff
+                }
+
+                .btn-secondary {
+                        background: #e5e7eb;
+                        color: #0f172a
+                }
+
+                .footer {
+                        color: var(--muted);
+                        font-size: 13px;
+                        text-align: center;
+                        margin: 16px 0 8px
+                }
+
+                .emoji-labels {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 5px;
+                        font-size: 28px;
+                }
+
+                .emoji-labels span.active {
+                        transform: scale(1.3);
+                        filter: drop-shadow(0 0 5px orange);
+                        animation: bounce 0.4s ease;
+                }
+
+                @keyframes bounce {
+                        0% {
+                                transform: scale(1.3) translateY(0);
+                        }
+
+                        30% {
+                                transform: scale(1.4) translateY(-5px);
+                        }
+
+                        60% {
+                                transform: scale(1.2) translateY(3px);
+                        }
+
+                        100% {
+                                transform: scale(1.3) translateY(0);
+                        }
+                }
+
+                .stars {
+                        display: flex;
+                        justify-content: space-between;
+                        /* equal spacing */
+                        width: 100%;
+                        /* take full container width */
+                        font-size: 40px;
+                        cursor: pointer;
+                }
+
+                .star {
+                        flex: 1;
+                        /* each star takes equal space */
+                        text-align: center;
+                        /* center the star in its slot */
+                        color: #ccc;
+                        transition: transform 0.3s ease, color 0.3s ease;
+                }
+
+                .star:hover {
+                        transform: scale(1.3) rotate(-10deg);
+                        color: gold;
+                }
+
+                .star.active {
+                        color: gold;
+                        animation: pop 0.4s ease;
+                }
+
+                @keyframes pop {
+                        0% {
+                                transform: scale(1.2);
+                        }
+
+                        50% {
+                                transform: scale(1.5) rotate(10deg);
+                        }
+
+                        100% {
+                                transform: scale(1.2);
+                        }
+                }
+        </style>
+</head>
+
+<body>
+        <div class="container">
+                <header class="header">
+                        <div>
+                                <div class="language">
+                                        <label for="langSelect" id="langLabel" data-i18n="langLabel">Language:</label>
+                                        <select id="langSelect" class="lang" onchange="setLang(this.value)">
+                                                <option value="en" data-i18n="en">English</option>
+                                                <option value="or" data-i18n="or">ଓଡ଼ିଆ</option>
+                                                <option value="hi" data-i18n="hi">हिन्दी</option>
+                                                <option value="te" data-i18n="te">తెలుగు</option>
+                                        </select>
+                                </div>
+                                <h1 data-i18n="hospital">Asha Kiran Hospital</h1>
+                                <p data-i18n="title">Out Patient Feedback Form</p>
+                                <div class="topbar">
+                                        <div class="progress" aria-label="Progress">
+                                                <div id="progressBar" class="progress-bar"></div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+
+                <!-- Q1 -->
+                <section class="page active" id="q1">
+                        <h2>🎂 <span data-i18n="q1">Your age?</span></h2>
+                        <div class="options">
+                                <div class="option" onclick="answerAndNext(1,'15-30')"><span data-i18n="q1o1">15–30
+                                                yrs</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(1,'30-45')"><span data-i18n="q1o2">30–45
+                                                yrs</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(1,'45-60')"><span data-i18n="q16o3">45–60
+                                                yrs</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(1,'Above 60')">
+                                        <span data-i18n="q1o4">Above 60</span>
+                                </div>
+                        </div>
+                </section>
+
+                <!-- Q2 -->
+                <section class="page" id="q2">
+                        <h2>🎓 <span data-i18n="q2">Your education status?</span></h2>
+                        <div class="options">
+                                <div class="option" onclick="answerAndNext(2,'No Schooling')"><span data-i18n="q2o1">No
+                                                Schooling</span></div>
+                                <div class="option" onclick="answerAndNext(2,'1st-5th Std')">
+                                        <span data-i18n="q2o2">1st–5th
+                                                Std</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(2,'6th-10th Std')">
+                                        <span data-i18n="q2o3">6th–10th Std</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(2,'+2 Passed')"><span data-i18n="q2o4">+2
+                                                Passed</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(2,'College graduate')">
+                                        <span data-i18n="q2o5">College graduate</span>
+                                </div>
+                        </div>
+                </section>
+
+                <!-- Q3 -->
+                <section class="page" id="q3">
+                        <h2>💼 <span data-i18n="q3">Your job?</span></h2>
+                        <div class="options">
+                                <div class="option" onclick="answerAndNext(3,'Farmer')">
+                                        <span data-i18n="q3o1">Farmer</span>
+                                </div>
+                                <div class="option" onclick="answerAndNext(3,'Govt. Employee')"><span
+                                                data-i18n="q3o2">Govt.
+                                                Employee</span></div>
+                                <div class="option" onclick="answerAndNext(3,'Salaried Employee')">
+                                        <span data-i18n="q3o3">Salaried Employee</span>
+                                </div>
+                                <div class="option" onclick="setOtherText(3,'Other')"><span class="emoji">✍️</span><span
+                                                data-i18n="qother">Other (specify)</span>
+                                </div>
+                        </div>
+                        <div class="actions" id="other18" style="display:none;">
+                                <input id="other18Input" class="input" type="text"
+                                        placeholder="Type other and continue">
+                                <button class="btn btn-primary" onclick="submitOther(3,'Other')"><span
+                                                data-i18n="continue">Continue</span></button>
+                        </div>
+                </section>
+
+                <!-- Q4 -->
+                <section class="page" id="q4">
+                        <h2>⭐ <span data-i18n="q4">How would you rate your experience with Records Department?</span>
+                        </h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(4,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(4,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(4,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(4,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(4,5)">🤩</span>
+                        </div>
+                </section>
+
+                <!-- Q5 -->
+                <section class="page" id="q5">
+                        <h2>⭐ <span data-i18n="q5">How would you rate your experience with Consultation Department?</span></h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(5,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(5,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(5,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(5,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(5,5)">🤩</span>
+                        </div>
+
+                </section>
+
+                <!-- Q6 -->
+                <section class="page" id="q6">
+                        <h2>⭐ <span data-i18n="q6">How would you rate your experience with Lab Department?</span></h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(6,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(6,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(6,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(6,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(6,5)">🤩</span>
+                        </div>
+                </section>
+
+                <!-- Q7 -->
+                <section class="page" id="q7">
+                        <h2>⭐ <span data-i18n="q7">How would you rate your experience with Pharmacy Department?</span>
+                        </h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(7,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(7,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(7,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(7,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(7,5)">🤩</span>
+                        </div>
+
+                </section>
+
+                <!-- Q8 -->
+                <section class="page" id="q8">
+                        <h2>⭐ <span data-i18n="q8">How would you rate your experience with Billing Department?</span>
+                        </h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(8,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(8,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(8,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(8,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(8,5)">🤩</span>
+                        </div>
+                </section>
+
+                <!-- Q9 -->
+                <section class="page" id="q9">
+                        <h2>⭐ <span data-i18n="q9">How would you rate your experience with Dental Department?</span>
+                        </h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(9,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(9,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(9,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(9,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(9,5)">🤩</span>
+                        </div>
+                        <!-- <div id="starRating" class="stars"></div>
+                        <p id="starValue"></p> -->
+                </section>
+
+                <!-- Q10 -->
+                <section class="page" id="q10">
+                        <h2>⭐ <span data-i18n="q10">How would you rate your experience with X-Ray Department?</span>
+                        </h2>
+                        <div class="emoji-labels">
+                                <span id="e1" onclick="highlightEmoji(10,1)">😡</span>
+                                <span id="e2" onclick="highlightEmoji(10,2)">😟</span>
+                                <span id="e3" onclick="highlightEmoji(10,3)">😐</span>
+                                <span id="e4" onclick="highlightEmoji(10,4)">🙂</span>
+                                <span id="e5" onclick="highlightEmoji(10,5)">🤩</span>
+                        </div>
+                        <!-- <div id="starRating" class="stars"></div>
+                        <p id="starValue"></p> -->
+                </section>
+
+                <!-- Q11 -->
+                <section class="page" id="q11">
+                        <h2>⭐ <span data-i18n="q11">How would you rate your overall experience?</span></h2>
+                        <div id="starRating" class="stars"></div>
+                        <p id="starValue"></p>
+                </section>
+
+                <!-- Q12 -->
+                <section class="page" id="q12">
+                        <h2>🛠️ <span data-i18n="q12">Suggestion to improve services</span></h2>
+                        <input id="q19Input" class="input" type="text" placeholder="">
+                        <div class="actions">
+                                <button class="btn btn-primary" onclick="submitText(12,'q12Input')"><span
+                                                data-i18n="next">Next</span></button>
+                        </div>
+                </section>
+
+                <!-- Q13 -->
+                <section class="page" id="q13">
+                        <h2>🏗️ <span data-i18n="q13">Suggestion to improve facilities</span></h2>
+                        <input id="q20Input" class="input" type="text" placeholder="">
+                        <div class="actions">
+                                <button class="btn btn-primary" onclick="submitText(13,'q13Input')"><span
+                                                data-i18n="next">Finish</span></button>
+                        </div>
+                </section>
+
+                <!-- Final -->
+                <section class="page" id="qFinal">
+                        <h2>🎉 <span data-i18n="thankyou">Thank you!</span></h2>
+                        <p><span data-i18n="recorded">Your feedback has been recorded. We value your experience at
+                                        AKH</span>
+                        </p>
+                </section>
+
+                <p class="footer" data-i18n="footer">Made with care — AKH</p>
+        </div>
+
+        <script>
+                // State
+                const responses = {};
+                const submissionsKey = "akh_op_dept_feedback_submissions";
+                const pages = [
+                        "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10",
+                        "q11", "q12", "q13", "qFinal"
+                ];
+                let currentIndex = 0;
+                let showFinishButton = false;
+
+                const translations = {
+                        en: {
+                                hospital: "Asha Kiran Hospital",
+                                title: "Out Patient Feedback Form",
+                                langLabel: "Language:",
+                                q1: "Your age?",
+                                q1o1: "15-30yrs",
+                                q1o2: "30-45yrs",
+                                q16o3: "45-60yrs",
+                                q1o4: "Above 60",
+                                q2: "Your education status?",
+                                q2o1: "No Schooling",
+                                q2o2: "1st-5th Std",
+                                q2o3: "6th-10th Std",
+                                q2o4: "+2 Passed",
+                                q2o5: "College graduate",
+                                q3: "Your job?",
+                                q3o1: "Farmer",
+                                q3o2: "Govt. Employee",
+                                q3o3: "Salaried Employee",
+                                q4: "How would you rate your experience with Records Department?",
+                                q5: "How would you rate your experience with Consultation Department?",
+                                q6: "How would you rate your experience with Lab Department?",
+                                q7: "How would you rate your experience with Pharmacy Department?",
+                                q8: "How would you rate your experience with Billing Department?",
+                                q9: "How would you rate your experience with Dental Department?",
+                                q10: "How would you rate your experience with X-Ray Department?",
+                                q11: "How would you rate your overall experience?",
+                                q12: "Suggestion to improve services",
+                                q13: "Suggestion to improve facilities",
+                                finish: "Finish",
+                                thankyou: "Thank you!",
+                                recorded: "Your feedback has been recorded. We value your experience at AKH",
+                                footer: "Made with care — AKH"
+                        },
+                        or: {
+                                hospital: "ଆଶା କିରଣ ହସ୍ପିଟାଲ",
+                                title: "ବାହାର ରୋଗୀ ପ୍ରତିକ୍ରିୟା ଫର୍ମ",
+                                langLabel: "ଭାଷା",
+                                q1: "ଆପଣଙ୍କ ବୟସ?",
+                                q1o1: "୧୫–୩୦ ବର୍ଷ",
+                                q1o2: "୩୦–୪୫ ବର୍ଷ",
+                                q16o3: "୪୫–୬୦ ବର୍ଷ",
+                                q1o4: "୬୦ ବର୍ଷରୁ ଅଧିକ",
+                                q2: "ଆପଣଙ୍କ ଶିକ୍ଷା ସ୍ଥିତି?",
+                                q2o1: "ଶିକ୍ଷା ନାହିଁ",
+                                q2o2: "୧ମ–୫ମ ଶ୍ରେଣୀ",
+                                q2o3: "୬ଠ–୧୦ମ ଶ୍ରେଣୀ",
+                                q2o4: "+2 ଉତ୍ତୀର୍ଣ୍ଣ",
+                                q2o5: "କଲେଜ ସ୍ନାତକ",
+                                q3: "ଆପଣଙ୍କ କାମ/ଚାକିରି?",
+                                q3o1: "କୃଷକ",
+                                q3o2: "ସରକାରୀ କର୍ମଚାରୀ",
+                                q3o3: "ବେତନଭୋଗୀ କର୍ମଚାରୀ",
+                                q4: "ଆପଣଙ୍କ ରେକର୍ଡ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q5: "ଆପଣଙ୍କ ଡାକ୍ତର ପରାମର୍ଶ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q6: "ଆପଣଙ୍କ ଲାବ୍ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q7: "ଆପଣଙ୍କ ଫାର୍ମାସି ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q8: "ଆପଣଙ୍କ ବିଲିଂ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q9: "ଆପଣଙ୍କ ଡେଣ୍ଟାଲ୍ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q10: "ଆପଣଙ୍କ ଏକ୍ସ-ରେ ବିଭାଗ ସହିତ ଅନୁଭବକୁ କେମିତି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q11: "ଆପଣଙ୍କ ସମଗ୍ର ଅନୁଭବକୁ କିପରି ମୂଲ୍ୟାୟନ କରିବେ?",
+                                q12: "ସେବାଗୁଡ଼ିକୁ ଉନ୍ନତ କରିବା ପାଇଁ ପ୍ରସ୍ତାବ",
+                                q13: "ସୁବିଧାଗୁଡ଼ିକୁ ଉନ୍ନତ କରିବା ପାଇଁ ପ୍ରସ୍ତାବ",
+                                finish: "ସମାପ୍ତ",
+                                thankyou: "ଧନ୍ୟବାଦ",
+                                recorded: "ଆପଣଙ୍କ ମତାମତ ରେକର୍ଡ କରାଯାଇଛି। ଆମେ AKH ରେ ଆପଣଙ୍କ ଅନୁଭବକୁ ମୂଲ୍ୟବାନ ମନେ କରୁଛୁ।",
+                                footer: "ସତର୍କତା ସହିତ ତିଆରି — AKH"
+                        },
+                        hi: {
+                                hospital: "आशा किरण अस्पताल",
+                                title: "बाह्य रोगी प्रतिक्रिया प्रपत्र",
+                                langLabel: "भाषा:",
+                                q1: "आपकी उम्र?",
+                                q1o1: "15-30 वर्ष",
+                                q1o2: "30-45 वर्ष",
+                                q16o3: "45-60 वर्ष",
+                                q1o4: "60 वर्ष से अधिक",
+                                q2: "आपकी शिक्षा स्थिति?",
+                                q2o1: "कोई शिक्षा नहीं",
+                                q2o2: "1वीं-5वीं कक्षा",
+                                q2o3: "6ठी-10वीं कक्षा",
+                                q2o4: "+2 उत्तीर्ण",
+                                q2o5: "कॉलेज स्नातक",
+                                q3: "आपका काम/नौकरी?",
+                                q3o1: "किसान",
+                                q3o2: "सरकारी कर्मचारी",
+                                q3o3: "वेतनभोगी कर्मचारी",
+                                q4: "आप रिकॉर्ड विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q5: "आप डॉक्टर परामर्श विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q6: "आप लैब विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q7: "आप फार्मेसी विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q8: "आप बिलिंग विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q9: "आप डेंटल विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q10: "आप एक्स-रे विभाग के साथ अपने अनुभव को कैसे आँकेंगे?",
+                                q11: "आप अपने संपूर्ण अनुभव को कैसे आँकेंगे?",
+                                q12: "सेवाओं में सुधार के लिए सुझाव",
+                                q13: "सुविधाओं में सुधार के लिए सुझाव",
+                                finish: "समाप्त",
+                                thankyou: "धन्यवाद",
+                                recorded: "आपकी प्रतिक्रिया दर्ज कर ली गई है। हम AKH में आपके अनुभव को महत्व देते हैं।",
+                                footer: "देखभाल के साथ बनाया गया — AKH"
+                        },
+                        te: {
+                                hospital: "ఆశా కిరణ ఆసుపత్రి",
+                                title: "బయట రోగి అభిప్రాయ ఫామ్",
+                                langLabel: "భాష:",
+                                q1: "మీ వయసు?",
+                                q1o1: "15-30 సంవత్సరాలు",
+                                q1o2: "30-45 సంవత్సరాలు",
+                                q16o3: "45-60 సంవత్సరాలు",
+                                q1o4: "60 పైబడిన వారు",
+                                q2: "మీ విద్యా స్థాయి?",
+                                q2o1: "పాఠశాల చదువు లేదు",
+                                q2o2: "1వ-5వ తరగతి",
+                                q2o3: "6వ-10వ తరగతి",
+                                q2o4: "+2 ఉత్తీర్ణులు",
+                                q2o5: "కళాశాల పట్టభద్రులు",
+                                q3: "మీ ఉద్యోగం?",
+                                q3o1: "రైతు ",
+                                q3o2: "ప్రభుత్వ ఉద్యోగి",
+                                q3o3: "వేతన ఉద్యోగి",
+                                q4: "మీరు రికార్డ్స్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q5: "మీరు డాక్టర్ కన్సల్టేషన్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q6: "మీరు ల్యాబ్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q7: "మీరు ఫార్మసీ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q8: "మీరు బిల్లింగ్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q9: "మీరు డెంటల్ విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q10: "మీరు ఎక్స్-రే విభాగంతో మీ అనుభవాన్ని ఎలా మూల్యాంకనం చేస్తారు?",
+                                q11: "మీ మొత్తం అనుభవాన్ని మీరు ఎలా రేట్ చేస్తారు?",
+                                q12: "సేవలను మెరుగుపరచడానికి సూచనలు",
+                                q13: "సౌకర్యాలను మెరుగుపరచడానికి సూచనలు",
+                                finish: "ముగించు",
+                                thankyou: "ధన్యవాదాలు!",
+                                recorded: "మీ అభిప్రాయం నమోదు చేయబడింది. మేము AKH లో మీ అనుభవాన్ని విలువైనదిగా భావిస్తున్నాము.",
+                                footer: "శ్రద్ధతో తయారు చేయబడింది — AKH"
+                        }
+                };
+
+                function setLang(lang) {
+                        currentLang = lang;
+                        const t = translations[lang];
+
+                        document.querySelectorAll("[data-i18n]").forEach(el => {
+                                const key = el.getAttribute("data-i18n");
+                                if (t[key]) el.textContent = t[key];
+                        });
+
+                        buildStars();
+                }
+
+                function showPage(id) {
+                        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+                        const el = document.getElementById(id);
+                        if (el) el.classList.add("active");
+                        updateProgress();
+                }
+
+                function updateProgress() {
+                        // Count only pages that will be asked based on conditional logic progress
+                        const progress = Math.round(((currentIndex) / (pages.length - 1)) * 100);
+                        document.getElementById("progressBar").style.width = progress + "%";
+                }
+
+                function nextByLogic() {
+                        // Determine next page considering skip logic
+                        let nextId = null;
+                        for (let i = currentIndex + 1; i < pages.length; i++) {
+                                const pid = pages[i];
+                                if (pid === "qFinal") submitSurvey();
+                                nextId = pid;
+                                currentIndex = i;
+                                break;
+                        }
+                        if (nextId) {
+                                showPage(nextId);
+                        } else {
+                                // Save submission, go to final
+                                persistSubmission();
+                                showPage("qFinal");
+                        }
+                }
+
+                function answerAndNext(qNum, answer) {
+                        responses["Q" + qNum] = answer;
+                        nextByLogic();
+                }
+
+                function setOtherText(qNum, label) {
+                        const wrap = document.getElementById("other" + qNum);
+                        if (wrap) wrap.style.display = "flex";
+                        const input = document.getElementById("other" + qNum + "Input");
+                        if (input) input.focus();
+                        // Store preliminary label to denote "Other"
+                        responses["Q" + qNum] = label;
+                }
+
+                function submitOther(qNum, label) {
+                        const val = (document.getElementById("other" + qNum + "Input") || {}).value || "";
+                        responses["Q" + qNum + "_other"] = val.trim();
+                        nextByLogic();
+                }
+
+                function submitText(qNum, inputId) {
+                        const val = (document.getElementById(inputId) || {}).value || "";
+                        responses["Q" + qNum] = val.trim();
+                        nextByLogic();
+                }
+
+                function persistSubmission() {
+                        const all = JSON.parse(localStorage.getItem(submissionsKey) || "[]");
+                        all.push({ ...responses, submittedAt: new Date().toISOString() });
+                        localStorage.setItem(submissionsKey, JSON.stringify(all));
+                }
+
+                function highlightEmoji(qNum, value) {
+                        const wrap = document.querySelector(`#q${qNum} .emoji-labels`);
+                        wrap.querySelectorAll("span").forEach((el, idx) => {
+                                el.classList.remove("active");
+                        });
+
+                        const chosen = wrap.querySelector(`#e${value}`);
+                        // reset animation
+                        chosen.classList.remove("active");
+                        void chosen.offsetWidth; // trigger reflow
+                        chosen.classList.add("active");
+
+                        setTimeout(() => {
+                                answerAndNext(qNum, value)
+                        }, 1000);
+                }
+
+                // Initialize first page
+                showPage("q1");
+
+                function buildStars(qId) {
+                        const wrap = document.getElementById("starRating");
+                        wrap.innerHTML = "";
+                        for (let i = 1; i <= 10; i++) {
+                                const s = document.createElement("span");
+                                s.className = "star";
+                                s.textContent = "★";
+                                s.addEventListener("click", () => {
+                                        wrap.querySelectorAll(".star").forEach((st, idx) => {
+                                                st.classList.toggle("active", idx < i);
+                                        });
+                                        responses["Q" + qId] = i;
+
+                                        setTimeout(() => {
+                                                answerAndNext(qId, i);
+                                        }, 600);
+                                });
+                                wrap.appendChild(s);
+                        }
+                }
+
+
+                // build stars for Q13
+                buildStars(11);
+
+                function submitSurvey() {
+                        let dataType = "Dept";
+                        responses["qFinal"] = "Dept";
+                        const url = "https://script.google.com/macros/s/AKfycbwdAO-5xQiw5HqXm4m1a-oQ0LFNH64r6sfjWH4_cmF8dZbgL-Toltt18YCQGpaUSKCO2A/exec"
+                                + "?data=" + encodeURIComponent(JSON.stringify(responses));
+
+                        const img = new Image();
+                        img.src = url;
+                }
+        </script>
+</body>
+
+</html>
