@@ -22,19 +22,27 @@
                         box-sizing: border-box
                 }
 
+                html {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                }
+
                 body {
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
                         margin: 0;
+                        padding: 0;
+                        height: 100%;
                         font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
                         color: var(--text);
                         background: linear-gradient(180deg, var(--bg1), var(--bg2));
                 }
 
                 .container {
-                        max-width: 100%;
+                        max-width: 95%;
                         margin: 0 auto;
                         padding: 20px;
                 }
@@ -73,7 +81,7 @@
                 }
 
                 .progress {
-                        height: 10px;
+                        height: 15px;
                         background: #e5e7eb;
                         border-radius: 999px;
                         overflow: hidden;
@@ -258,6 +266,7 @@
 
                         .page {
                                 padding: 10px;
+                                margin: 5px;
                         }
 
                         .container {
