@@ -57,6 +57,10 @@
                         margin-bottom: 16px;
                         text-align: center;
                         /* display: flex; */
+                        background-image: url("Images/Hospital.jpeg");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: cover;
                 }
 
                 .header h1 {
@@ -66,17 +70,23 @@
 
                 .header p {
                         margin: 0;
-                        color: var(--muted)
+                        /* color: var(--muted) */
                 }
 
                 .language {
-                        text-align: right;
-                        padding: 0 2vw 2vw 0;
-                        color: var(--primary2);
+                        width: fit-content;
+                        display: flex;
+                        justify-content: center;
+                        align-items: end;
+                        margin-left: auto;
+                        border-radius: 5%;
+                        padding: 1%;
+                        /* color: var(--primary2); */
+                        background: rgba(255, 255, 255, 0.9);
                 }
 
                 .lang {
-                        color: var(--primary2);
+                        /* color: var(--primary2); */
                         border: 1px solid var(--primary);
                         border-radius: 5%;
                 }
@@ -299,6 +309,35 @@
                                 transform: scale(1.2);
                         }
                 }
+
+                .hospitalTitleSection {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+                        padding: 10px;
+                }
+
+                .nameSection {
+                        background: rgba(255, 255, 255, 0.9);
+                }
+
+                .logoSection {
+                        flex-shrink: 0;
+                }
+
+                @media (max-width: 480px) {
+                        .logoSection {
+                                display: none;
+                        }
+
+                        .hospitalTitleSection {
+                                background-image: url("Images/Logo.jpg");
+                                background-repeat: no-repeat;
+                                background-position: left center;
+                                background-size: 50px;
+                        }
+                }
         </style>
 </head>
 
@@ -315,8 +354,15 @@
                                                 <option value="te" data-i18n="te">తెలుగు</option>
                                         </select>
                                 </div>
-                                <h1 data-i18n="hospital">Asha Kiran Hospital</h1>
-                                <p data-i18n="title">Out Patient Feedback Form</p>
+                                <div class="hospitalTitleSection">
+                                        <div class="logoSection">
+                                                <img src="Images/Logo.jpg" alt="Hospital Logo" class="logo">
+                                        </div>
+                                        <div class="nameSection">
+                                                <h1 data-i18n="hospital">Asha Kiran Hospital</h1>
+                                                <p data-i18n="title">Out Patient Feedback Form</p>
+                                        </div>
+                                </div>
                                 <div class="topbar">
                                         <div class="progress" aria-label="Progress">
                                                 <div id="progressBar" class="progress-bar"></div>
@@ -392,7 +438,8 @@
 
                 <!-- Q4 -->
                 <section class="page" id="q4">
-                        <h2>🗂️ <span data-i18n="q4">How was your experience when taking or giving op cards and papers?</span>
+                        <h2>🗂️ <span data-i18n="q4">How was your experience when taking or giving op cards and
+                                        papers?</span>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(4,1)">😡</span>
@@ -409,8 +456,9 @@
 
                 <!-- Q5 -->
                 <section class="page" id="q5">
-                        <h2>👨‍⚕️ <span data-i18n="q5">How was your experience with the doctor during consultation and discussion of your health problem?
-                                        </span></h2>
+                        <h2>👨‍⚕️ <span data-i18n="q5">How was your experience with the doctor during consultation and
+                                        discussion of your health problem?
+                                </span></h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(5,1)">😡</span>
                                 <span id="e2" onclick="highlightEmoji(5,2)">😟</span>
@@ -426,7 +474,8 @@
 
                 <!-- Q6 -->
                 <section class="page" id="q6">
-                        <h2>🔬 <span data-i18n="q6">How was your experience with the Lab staff during sample collection and testing?</span></h2>
+                        <h2>🔬 <span data-i18n="q6">How was your experience with the Lab staff during sample collection
+                                        and testing?</span></h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(6,1)">😡</span>
                                 <span id="e2" onclick="highlightEmoji(6,2)">😟</span>
@@ -442,7 +491,8 @@
 
                 <!-- Q7 -->
                 <section class="page" id="q7">
-                        <h2>💊 <span data-i18n="q7">How was your experience at the Pharmacy while receiving medicines and instructions?</span>
+                        <h2>💊 <span data-i18n="q7">How was your experience at the Pharmacy while receiving medicines
+                                        and instructions?</span>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(7,1)">😡</span>
@@ -451,7 +501,7 @@
                                 <span id="e4" onclick="highlightEmoji(7,4)">🙂</span>
                                 <span id="e5" onclick="highlightEmoji(7,5)">🤩</span>
                         </div>
-<div class="actions">
+                        <div class="actions">
                                 <button class="btn btn-primary" onclick="answerAndNext(7,'')"><span
                                                 data-i18n="continue">Continue</span></button>
                         </div>
@@ -459,7 +509,8 @@
 
                 <!-- Q8 -->
                 <section class="page" id="q8">
-                        <h2>💳 <span data-i18n="q8">How was your experience while paying the bill or asking about charges?</span>
+                        <h2>💳 <span data-i18n="q8">How was your experience while paying the bill or asking about
+                                        charges?</span>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(8,1)">😡</span>
@@ -476,7 +527,8 @@
 
                 <!-- Q9 -->
                 <section class="page" id="q9">
-                        <h2>🦷 <span data-i18n="q9">How was your experience during teeth check or dental treatment?</span>
+                        <h2>🦷 <span data-i18n="q9">How was your experience during teeth check or dental
+                                        treatment?</span>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(9,1)">😡</span>
@@ -493,7 +545,8 @@
 
                 <!-- Q10 -->
                 <section class="page" id="q10">
-                        <h2>🩻 <span data-i18n="q10">How was your experience with the X-Ray or Imaging Department during scans?</span>
+                        <h2>🩻 <span data-i18n="q10">How was your experience with the X-Ray or Imaging Department during
+                                        scans?</span>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(10,1)">😡</span>
