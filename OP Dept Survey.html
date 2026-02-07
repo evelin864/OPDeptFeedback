@@ -373,7 +373,8 @@
 
                 <!-- Q1 -->
                 <section class="page active" id="q1">
-                        <h2>🎂 <span data-i18n="q1">Your age?</span></h2>
+                        <h2>🎂 <span data-i18n="q1">Your age?</span><button onclick="speak('q1')">🔊</button>
+                        </h2>
                         <div class="options">
                                 <div class="option" onclick="answerAndNext(1,'15-30')"><span data-i18n="q1o1">15–30
                                                 yrs</span>
@@ -392,7 +393,7 @@
 
                 <!-- Q2 -->
                 <section class="page" id="q2">
-                        <h2>🎓 <span data-i18n="q2">Your education status?</span></h2>
+                        <h2>🎓 <span data-i18n="q2">Your education status?</span><button onclick="speak('q2')">🔊</button></h2>
                         <div class="options">
                                 <div class="option" onclick="answerAndNext(2,'No Schooling')"><span data-i18n="q2o1">No
                                                 Schooling</span></div>
@@ -414,7 +415,7 @@
 
                 <!-- Q3 -->
                 <section class="page" id="q3">
-                        <h2>💼 <span data-i18n="q3">Your job?</span></h2>
+                        <h2>💼 <span data-i18n="q3">Your job?</span><button onclick="speak('q3')">🔊</button></h2>
                         <div class="options">
                                 <div class="option" onclick="answerAndNext(3,'Farmer')">
                                         <span data-i18n="q3o1">Farmer</span>
@@ -439,7 +440,7 @@
                 <!-- Q4 -->
                 <section class="page" id="q4">
                         <h2>🗂️ <span data-i18n="q4">How was your experience when taking or giving op cards and
-                                        papers?</span>
+                                        papers?</span><button onclick="speak('q4')">🔊</button>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(4,1)">😡</span>
@@ -458,7 +459,7 @@
                 <section class="page" id="q5">
                         <h2>👨‍⚕️ <span data-i18n="q5">How was your experience with the doctor during consultation and
                                         discussion of your health problem?
-                                </span></h2>
+                                </span><button onclick="speak('q5')">🔊</button></h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(5,1)">😡</span>
                                 <span id="e2" onclick="highlightEmoji(5,2)">😟</span>
@@ -475,7 +476,7 @@
                 <!-- Q6 -->
                 <section class="page" id="q6">
                         <h2>🔬 <span data-i18n="q6">How was your experience with the Lab staff during sample collection
-                                        and testing?</span></h2>
+                                        and testing?</span><button onclick="speak('q6')">🔊</button></h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(6,1)">😡</span>
                                 <span id="e2" onclick="highlightEmoji(6,2)">😟</span>
@@ -492,7 +493,7 @@
                 <!-- Q7 -->
                 <section class="page" id="q7">
                         <h2>💊 <span data-i18n="q7">How was your experience at the Pharmacy while receiving medicines
-                                        and instructions?</span>
+                                        and instructions?</span><button onclick="speak('q7')">🔊</button>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(7,1)">😡</span>
@@ -510,7 +511,7 @@
                 <!-- Q8 -->
                 <section class="page" id="q8">
                         <h2>💳 <span data-i18n="q8">How was your experience while paying the bill or asking about
-                                        charges?</span>
+                                        charges?</span><button onclick="speak('q8')">🔊</button>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(8,1)">😡</span>
@@ -528,7 +529,7 @@
                 <!-- Q9 -->
                 <section class="page" id="q9">
                         <h2>🦷 <span data-i18n="q9">How was your experience during teeth check or dental
-                                        treatment?</span>
+                                        treatment?</span><button onclick="speak('q9')">🔊</button>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(9,1)">😡</span>
@@ -546,7 +547,7 @@
                 <!-- Q10 -->
                 <section class="page" id="q10">
                         <h2>🩻 <span data-i18n="q10">How was your experience with the X-Ray or Imaging Department during
-                                        scans?</span>
+                                        scans?</span><button onclick="speak('q10')">🔊</button>
                         </h2>
                         <div class="emoji-labels">
                                 <span id="e1" onclick="highlightEmoji(10,1)">😡</span>
@@ -563,14 +564,14 @@
 
                 <!-- Q11 -->
                 <section class="page" id="q11">
-                        <h2>🙂⭐ <span data-i18n="q11">How did you feel about the care you received today?</span></h2>
+                        <h2>🙂⭐ <span data-i18n="q11">How did you feel about the care you received today?</span><button onclick="speak('q11')">🔊</button></h2>
                         <div id="starRating" class="stars"></div>
                         <p id="starValue"></p>
                 </section>
 
                 <!-- Q12 -->
                 <section class="page" id="q12">
-                        <h2>🛠️ <span data-i18n="q12">Suggestion to improve services</span></h2>
+                        <h2>🛠️ <span data-i18n="q12">Suggestion to improve services</span><button onclick="speak('q12')">🔊</button></h2>
                         <input id="q19Input" class="input" type="text" placeholder="">
                         <div class="actions">
                                 <button class="btn btn-primary" onclick="submitText(12,'q12Input')"><span
@@ -580,7 +581,7 @@
 
                 <!-- Q13 -->
                 <section class="page" id="q13">
-                        <h2>🏗️ <span data-i18n="q13">Suggestion to improve facilities</span></h2>
+                        <h2>🏗️ <span data-i18n="q13">Suggestion to improve facilities</span><button onclick="speak('q13')">🔊</button></h2>
                         <input id="q20Input" class="input" type="text" placeholder="">
                         <div class="actions">
                                 <button class="btn btn-primary" onclick="submitText(13,'q13Input')"><span
@@ -609,6 +610,7 @@
                 ];
                 let currentIndex = 0;
                 let showFinishButton = false;
+                let currentLang = "en";
 
                 const translations = {
                         en: {
@@ -771,6 +773,16 @@
                         });
 
                         buildStars();
+                }
+
+                function speak(key) {
+                        const txt = translations[currentLang][key];
+                        const msg = new SpeechSynthesisUtterance(txt);
+                        msg.lang = currentLang + '-IN'; // en-IN / hi-IN / te-IN / or-IN
+                        msg.rate = 0.9;
+                        console.log(msg);
+                        speechSynthesis.cancel();
+                        speechSynthesis.speak(msg);
                 }
 
                 function showPage(id) {
